@@ -8,12 +8,16 @@ var server = http.createServer(function(req, res) {
   res.end('Hello Red Hat!');
 });
 
-// Handle SIGTERM by initiating graceful server shutdown.
-process.on('SIGTERM', () => {
-  console.log('Initiating shut down. No new HTTP connections will be accepted.');
+var close = function() {
   server.close(() => {
     console.log('All HTTP connections closed. Shutting down now.');
   });
+};
+
+// Handle SIGTERM by initiating graceful server shutdown.
+process.on('SIGTERM', () => {
+  console.log('Initiating shut down. No new HTTP connections will be accepted.');
+  setTimeout(close, process.env.SHUTDOWN_TIME || 5000);
 });
 
 // Start the server on port 8080
