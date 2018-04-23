@@ -5,7 +5,7 @@ var process = require('process');
 // Create http server with default request handler.
 var server = http.createServer(function(req, res) {
   res.writeHead(200);
-  res.end('Hello Red Hat!');
+  res.end('Hello Red Hat from OpenShift.io!');
 });
 
 // Handle SIGTERM by initiating graceful server shutdown.
